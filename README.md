@@ -1,12 +1,9 @@
-SVG Roulette
-===============
-This is a roulette for lucky draw, using Raphael.js to create the SVG graphic.
+# SVG Roulette
+A lucky draw roulette and editable choice created using HTML5 technology.
 
-#Usage
-* `git clone` this repo.
-* Change the entries of `var pieText = [...]` in `js/roultte.js`.
-* Open `roulette.html` in the browser (only tested on Firefox 32)
-* Enjoy!
+## Demo
+[https://github.com/zugarzeeker/svg-roulette](https://github.com/zugarzeeker/svg-roulette)
 
-##Ugly code ahead
-This project is hecked under tight schedule, so the code quality is pretty bad :P
+## Original by [shinglyu](http://shinglyu.github.io/)
+
+[https://github.com/shinglyu/svg-roulette](https://github.com/shinglyu/svg-roulette)
