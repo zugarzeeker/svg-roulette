@@ -6,6 +6,7 @@ var center = {'x':200, 'y':200};
 var diameter = 180;
 var time = 8000; //ms
 var m = new MersenneTwister(); //move to global to fix the seed
+var len_choices = 0;
 
 //max not included, 0 to max-1
 function getRandom(max){
@@ -159,7 +160,8 @@ function randomSpin(){
 
 function updateResult(id) {
   setTimeout(function() {
-    document.getElementById('result').innerHTML = pieText[id];  
+    console.log(id);
+    document.getElementById('result').innerHTML = pieText[id % len_choices];  
   }, time);
 }
 
@@ -188,8 +190,10 @@ function create() {
     pieText = query.split(',');
   }
   pieText = document.getElementById('choiceInput').value.split(' ')
+  len_choices = pieText.length;
   refreshUi();
   init();
+
 
 
   document.getElementById('genBtn').onclick = function(){
@@ -222,6 +226,7 @@ document.getElementById('choiceInput').value = "X Y Z U V W";
 function updateChoice() {
   // console.log("update")
   pieText = document.getElementById('choiceInput').value.split(' ');
+  len_choices = pieText.length;
   reset();
   init();
 }
