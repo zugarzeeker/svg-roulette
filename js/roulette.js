@@ -217,6 +217,7 @@ function create() {
   //window.onkeydown = (function(evt){if (evt.keyCode === 32 || evt.keyCode === 13){ init();}});
   //
 };
+
 document.getElementById('choiceInput').value = "X Y Z U V W";
 function updateChoice() {
   // console.log("update")
