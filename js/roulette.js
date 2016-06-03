@@ -1,15 +1,10 @@
 var paper;
 var arcs = []; //svg object
 var texts= []; //svg object
-var pieText= [
-  'Firefox',
-  'Thunderbird',
-  'Sea Monkey',
-  'Persona',
-  'Bugzilla',
-];
+var pieText= [];
 var center = {'x':200, 'y':200};
 var diameter = 180;
+var time = 8000; //ms
 var m = new MersenneTwister(); //move to global to fix the seed
 
 //max not included, 0 to max-1
@@ -44,7 +39,6 @@ function getRandomDriftDeg(multipliedItems){
 
 function spinToId(id){
   //TODO: Move these config to the top
-  var time = 8000; //ms
   //var easing = '>'
   var easing = 'cubic-bezier(0,1,0.1,1)' ;
   var rotateAngle = 360 * 9; 
@@ -159,20 +153,27 @@ function init(){
 
 function randomSpin(){
   winnerId = getRandom(multiplyList(pieText).length - 1); //for 5 arcs, the id is 0 to 4
-  spinToId(winnerId); 
+  spinToId(winnerId);
+  updateResult(winnerId);
+}
+
+function updateResult(id) {
+  setTimeout(function() {
+    document.getElementById('result').innerHTML = pieText[id];  
+  }, time);
 }
 
 function refreshUi(){
 //Call this to reflect pieText change
   //pieText = parseList();
-  document.getElementById('items').value = pieText.join("\n");
-  document.getElementById('bookmarklink').href = "./roulette.html?items=" + pieText.join(',');
+  // document.getElementById('items').value = pieText.join("\n");
+  // document.getElementById('bookmarklink').href = "./roulette.html?items=" + pieText.join(',');
 
-  if (typeof winnerId === "undefined") {
-    document.getElementById('rmBtn').disabled = true;
-  } else {
-    document.getElementById('rmBtn').disabled = false;
-  }
+  // if (typeof winnerId === "undefined") {
+  //   // document.getElementById('rmBtn').disabled = true;
+  // } else {
+  //   // document.getElementById('rmBtn').disabled = false;
+  // }
 }
 
 function removeWinner(){
@@ -181,12 +182,12 @@ function removeWinner(){
   document.getElementById('items').value = pieText.join("\n");
 }
 
-document.body.onload = function(){
+function create() {
   var query = getQueryStringByName('items');
   if (query !== ""){
     pieText = query.split(',');
   }
-  //pieText = parseList();
+  pieText = document.getElementById('choiceInput').value.split(' ')
   refreshUi();
   init();
 
@@ -199,16 +200,28 @@ document.body.onload = function(){
     refreshUi();
   };
 
-  document.getElementById('rmBtn').onclick = function(){
-    //pieText = parseList();
-    removeWinner();
-    //updateUrl();
-    reset();
-    init();
-    randomSpin();
-    refreshUi();
-  };
+  // document.getElementById('rmBtn').onclick = function(){
+  //   //pieText = parseList();
+  //   removeWinner();
+  //   //updateUrl();
+  //   reset();
+  //   init();
+  //   randomSpin();
+  //   refreshUi();
+  // };
+
+  // document.body.onload = create;
+
+
 
   //window.onkeydown = (function(evt){if (evt.keyCode === 32 || evt.keyCode === 13){ init();}});
   //
 };
+document.getElementById('choiceInput').value = "X Y Z U V W";
+function updateChoice() {
+  // console.log("update")
+  pieText = document.getElementById('choiceInput').value.split(' ');
+  reset();
+  init();
+}
+create();
