@@ -2,7 +2,7 @@
 A lucky draw roulette and editable choice created using HTML5 technology.
 
 ## Demo
-[https://github.com/zugarzeeker/svg-roulette](https://github.com/zugarzeeker/svg-roulette)
+[http://zugarzeeker.github.io/svg-roulette](http://zugarzeeker.github.io/svg-roulette)
 
 
 ![Image Demo](images/img1.png)
