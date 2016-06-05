@@ -159,10 +159,20 @@ function randomSpin(){
 }
 
 function updateResult(id) {
+  var i = 0;
+  var waitingResult = setInterval(function() {
+    document.getElementById('result').innerHTML = pieText[(i++) % len_choices];
+  }, 100);
+
+  // setTimeout(function() {
+    
+  // }, time-4000)
+
   setTimeout(function() {
     console.log(id);
-    document.getElementById('result').innerHTML = pieText[id % len_choices];  
-  }, time);
+    clearInterval(waitingResult);
+    document.getElementById('result').innerHTML = pieText[id % len_choices];
+  }, time * (8.0-2.5) / 8.0);
 }
 
 function refreshUi(){
