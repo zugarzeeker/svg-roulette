@@ -11,6 +11,16 @@ p{
   color:lightgrey;
 }
 
-button {
-  height: 4em;
+
+#genBtn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 23px;
+  background-color: #fff;
+}
+
+.header {
+  color: #fff;
+  font-family: sans-serif;
+  font-size: 40px;
 }
