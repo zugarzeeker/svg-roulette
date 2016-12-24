@@ -7,6 +7,7 @@ var diameter = 180;
 var time = 8000; //ms
 var m = new MersenneTwister(); //move to global to fix the seed
 var len_choices = 0;
+var winnerId = [];
 
 //max not included, 0 to max-1
 function getRandom(max){
@@ -42,19 +43,19 @@ function spinToId(id){
   //TODO: Move these config to the top
   //var easing = '>'
   var easing = 'cubic-bezier(0,1,0.1,1)' ;
-  var rotateAngle = 360 * 9; 
-  //var rotateAngle = 360 * 1; 
+  var rotateAngle = 360 * 9;
+  //var rotateAngle = 360 * 1;
   rotateAngle -= getAngleFromID(id, multiplyList(pieText).length);
   rotateAngle += getRandomDriftDeg(multiplyList(pieText));
-  // spinToId texts 
+  // spinToId texts
   texts.forEach(function(text){
     var fromAngle = parseInt(text.transform()[0][1]);
     var toAngle = fromAngle + rotateAngle;
-    text.stop().animate({transform: "r" + toAngle + " " + center.x + " " + center.y}, time, easing); 
+    text.stop().animate({transform: "r" + toAngle + " " + center.x + " " + center.y}, time, easing);
   });
   // spinToId arcs
   var roulette = paper.set(arcs);
-  roulette.stop().animate({transform: "r" + rotateAngle + " " + center.x + " " + center.y}, time, easing); 
+  roulette.stop().animate({transform: "r" + rotateAngle + " " + center.x + " " + center.y}, time, easing);
 }
 
 
@@ -71,7 +72,7 @@ function drawRouletteShadow(){
     var c = paper.circle(center.x, center.y, diameter);
     c.attr("fill", "black");
     c.glow({width:15, offsetx:2.5, offsety:2.5});
-  
+
 }
 
 function drawArcs(){
@@ -86,7 +87,7 @@ function drawArcs(){
     y1 = parseInt(center.y+ diameter*Math.sin(Math.PI*startAngle/180));
 
     x2 = parseInt(center.x+ diameter*Math.cos(Math.PI*endAngle/180));
-    y2 = parseInt(center.y+ diameter*Math.sin(Math.PI*endAngle/180));                
+    y2 = parseInt(center.y+ diameter*Math.sin(Math.PI*endAngle/180));
 
     var d = "M" + center.x + "," + center.y + "L" + x1 + "," + y1 + " A" + diameter + "," + diameter + " 0 0,1 " + x2 + "," + y2 + " z"; //1 means clockwise
     arc = paper.path(d);
@@ -106,8 +107,8 @@ function drawArcs(){
 }
 
 function drawPointer(){
-    var pcmd = "M" + center.x + "," + center.y + " m" + diameter + ",0" + " m-20,0 l35,-5 l0,10 z"; 
-    var p = paper.path(pcmd); 
+    var pcmd = "M" + center.x + "," + center.y + " m" + diameter + ",0" + " m-20,0 l35,-5 l0,10 z";
+    var p = paper.path(pcmd);
     p.attr("fill", "#F0F0F0");
     p.glow({width:5, offsetx:2.5, offsety:2.5});
 }
@@ -150,7 +151,7 @@ function init(){
   drawRouletteShadow();
   drawArcs();
   drawPointer();
-}               
+}
 
 function randomSpin(){
   winnerId = getRandom(multiplyList(pieText).length - 1); //for 5 arcs, the id is 0 to 4
@@ -165,7 +166,7 @@ function updateResult(id) {
   }, 100);
 
   // setTimeout(function() {
-    
+
   // }, time-4000)
 
   setTimeout(function() {
@@ -191,7 +192,7 @@ function refreshUi(){
 function removeWinner(){
   if (pieText.length <= 1) {return;}
   pieText.splice(winnerId % pieText.length, 1);
-  document.getElementById('items').value = pieText.join("\n");
+  len_choices--;
 }
 
 function create() {
@@ -208,6 +209,7 @@ function create() {
 
   document.getElementById('genBtn').onclick = function(){
     //updateUrl();
+    removeWinner();
     reset();
     init();
     randomSpin();
