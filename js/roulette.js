@@ -234,7 +234,14 @@ function create() {
   //
 };
 
-document.getElementById('choiceInput').value = "X Y Z U V W";
+var selectedGroups = (_.includes(window.location.href, '?')
+  ? (window.location.href + '').split('=').pop().split('').map((s) => s.toUpperCase())
+  : []
+);
+document.getElementById('choiceInput').value = 'ABCDEFGHIJ'.split('').filter((g) => (
+  !_.includes(selectedGroups, g)
+)).join(' ');
+
 function updateChoice() {
   // console.log("update")
   pieText = document.getElementById('choiceInput').value.split(' ');
