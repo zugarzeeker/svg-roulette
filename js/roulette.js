@@ -30,9 +30,9 @@ function multiplyList(rawList){
     list.splice(list.indexOf(""),1);
   }
   // Repeat items until it has more than 8 items
-  while (list.length < 8){
-    list = list.concat(list);
-  }
+  // while (list.length < 8){
+  //   list = list.concat(list);
+  // }
   return list ;
 }
 
