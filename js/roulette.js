@@ -8,6 +8,13 @@ var time = 8000; //ms
 var m = new MersenneTwister(); //move to global to fix the seed
 var len_choices = 0;
 var winnerId = [];
+var selectedGroups = (_.includes(window.location.href, '?')
+  ? (window.location.href + '').split('=').pop().split('').map((s) => s.toUpperCase())
+  : []
+);
+var remainingGroups = 'ABCDEFGHIJ'.split('').filter((g) => (
+  !_.includes(selectedGroups, g)
+));
 
 //max not included, 0 to max-1
 function getRandom(max){
@@ -200,7 +207,7 @@ function create() {
   if (query !== ""){
     pieText = query.split(',');
   }
-  pieText = document.getElementById('choiceInput').value.split(' ')
+  pieText = remainingGroups
   len_choices = pieText.length;
   refreshUi();
   init();
@@ -234,17 +241,9 @@ function create() {
   //
 };
 
-var selectedGroups = (_.includes(window.location.href, '?')
-  ? (window.location.href + '').split('=').pop().split('').map((s) => s.toUpperCase())
-  : []
-);
-document.getElementById('choiceInput').value = 'ABCDEFGHIJ'.split('').filter((g) => (
-  !_.includes(selectedGroups, g)
-)).join(' ');
-
 function updateChoice() {
   // console.log("update")
-  pieText = document.getElementById('choiceInput').value.split(' ');
+  pieText = remainingGroups
   len_choices = pieText.length;
   reset();
   init();
