@@ -15,6 +15,7 @@ var selectedGroups = (_.includes(window.location.href, '?')
 var remainingGroups = 'ABCDEFGHIJ'.split('').filter((g) => (
   !_.includes(selectedGroups, g)
 ));
+var player = new Audio();
 
 //max not included, 0 to max-1
 function getRandom(max){
@@ -210,6 +211,9 @@ function updateResult(id) {
     console.log(id);
     clearInterval(waitingResult);
     document.getElementById('result').innerHTML = pieText[id % len_choices];
+  }, time * (8.0-2.5) / 8.0);
+
+  setTimeout(function() {
     var colorRGB = HSVtoRGB(id / multiplyList(pieText).length, 0.7, 0.5);
     document.body.style.backgroundColor = 'rgb(' + [colorRGB.r, colorRGB.g, colorRGB.b].join(',') + ')';
   }, time * (8.0-2.5) / 8.0);
@@ -230,8 +234,10 @@ function refreshUi(){
 
 function removeWinner(){
   if (pieText.length <= 1) {return;}
-  pieText.splice(winnerId % pieText.length, 1);
-  len_choices--;
+  if (typeof winnerId === 'number') {
+    pieText.splice(winnerId % pieText.length, 1);
+    len_choices--;
+  }
 }
 
 function create() {
